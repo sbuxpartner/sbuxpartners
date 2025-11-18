@@ -117,6 +117,15 @@ TipJar is configured for easy deployment to [Vercel](https://vercel.com/) with s
    - Click "Add New Project"
    - Import your repository: `sbuxpartner/sbuxpartners`
    - Vercel will auto-detect the configuration from `vercel.json`
+   - Confirm "Automatically deploy your Git branches" is enabled so every push to `main` creates a preview and production deployment
+
+3. **Verify the GitHub ↔ Vercel link:**
+   - Install the Vercel CLI locally if needed: `npm install --global vercel`
+   - From the repo root run `npx vercel link --yes` to bind your local checkout to the Vercel project
+   - Run `npx vercel env pull .env.local` to mirror Vercel environment variables for local testing
+   - Check deployments with `npx vercel ls` and open the dashboard with `npx vercel --open`
+
+Once connected, pushes to `main` will trigger automatic deployments, and any pull request will generate a preview URL. Environment variables listed in `env.example` should be configured in Vercel for the build to succeed.
 
 3. **Set Environment Variables:**
    - In the project settings, go to "Environment Variables"
