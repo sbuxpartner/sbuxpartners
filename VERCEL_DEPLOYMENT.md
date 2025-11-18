@@ -63,14 +63,16 @@ npx vercel env rm VARIABLE_NAME production
 npx vercel --open
 ```
 
-### 🔗 Connect GitHub for Auto-Deploy (Optional)
+### 🔗 Connect GitHub for Auto-Deploy (Completed)
 
-To automatically deploy on every git push:
+The Vercel project is configured to connect directly to GitHub so pushes to `main` deploy automatically and pull requests genera
+te preview URLs.
 
-1. Go to: https://vercel.com/devwalshy/tipjar-sbux
-2. Click "Settings" → "Git"
-3. Connect your GitHub repository
-4. Every push to main will auto-deploy!
+If you need to re-link locally or verify the connection:
+
+1. Run `npx vercel link --yes` in the repository root to bind the local checkout to the hosted project.
+2. Run `npx vercel env pull .env.local` to sync environment variables for local testing.
+3. Confirm deploy automation in the Vercel dashboard under **Settings → Git**.
 
 ### 📱 Features Available
 
