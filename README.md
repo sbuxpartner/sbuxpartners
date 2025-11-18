@@ -98,6 +98,61 @@ npm run build
 npm start
 ```
 
+### Deploying to Vercel 🚀
+
+TipJar is configured for easy deployment to [Vercel](https://vercel.com/) with serverless functions and automatic HTTPS.
+
+**Quick Deploy via Vercel UI** (Recommended):
+
+1. **Push your code to GitHub:**
+   ```bash
+   git add .
+   git commit -m "Prepare for Vercel deployment"
+   git push origin main
+   ```
+
+2. **Connect to Vercel:**
+   - Go to [vercel.com](https://vercel.com)
+   - Sign in with your GitHub account
+   - Click "Add New Project"
+   - Import your repository: `sbuxpartner/sbuxpartners`
+   - Vercel will auto-detect the configuration from `vercel.json`
+
+3. **Set Environment Variables:**
+   - In the project settings, go to "Environment Variables"
+   - Add the following:
+     - `SESSION_SECRET` - A secure random string (e.g., generate with `openssl rand -base64 32`)
+     - `AZURE_CV_KEY` - Your Azure Computer Vision API Key (optional, for better OCR)
+     - `AZURE_CV_ENDPOINT` - Your Azure Computer Vision endpoint URL (optional)
+
+4. **Deploy** - Vercel will build and deploy automatically!
+
+**Deploy via CLI:**
+
+```bash
+# Install Vercel CLI (if not already installed)
+npm install -g vercel
+
+# Login to Vercel
+vercel login
+
+# Deploy to preview
+vercel
+
+# Deploy to production
+vercel --prod
+```
+
+**📘 Full deployment guide:** See [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) for detailed instructions.
+
+**Free Tier Includes:**
+- ✅ Unlimited deployments
+- ✅ 100GB bandwidth/month
+- ✅ Automatic HTTPS & CDN
+- ✅ Serverless functions
+- ✅ Preview deployments for every push
+- ✅ Instant rollbacks
+
 ### Deploying to Netlify 🚀
 
 TipJar is configured for easy deployment to [Netlify](https://www.netlify.com/) with serverless functions and automatic HTTPS.
@@ -336,5 +391,6 @@ MIT
 ---
 
 **Note:** This application is designed for Starbucks tip distribution but is not officially affiliated with Starbucks Corporation.
-#   s b u x p a r t n e r s  
+#   s b u x p a r t n e r s 
+ 
  
