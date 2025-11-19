@@ -2,7 +2,7 @@
  * Azure Computer Vision OCR implementation using the Read API
  */
 
-import fetch from 'node-fetch';
+
 
 export interface AzureOCRResult {
   text: string | null;
