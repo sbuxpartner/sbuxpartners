@@ -8,6 +8,22 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 
+function logAzureConfiguration() {
+  const endpoint = process.env.AZURE_CV_ENDPOINT;
+  const apiKey = process.env.AZURE_CV_KEY;
+
+  if (endpoint && apiKey) {
+    try {
+      const hostname = new URL(endpoint).hostname;
+      log(`Azure Computer Vision configured for ${hostname}`);
+    } catch (error) {
+      log(`Azure Computer Vision configured but endpoint is not a valid URL: ${endpoint}`);
+    }
+  } else {
+    log('Azure Computer Vision credentials missing. Set AZURE_CV_ENDPOINT and AZURE_CV_KEY.');
+  }
+}
+
 // Logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
@@ -58,6 +74,7 @@ async function initializeRoutes() {
 
 // Initialize routes on cold start
 initializeRoutes();
+logAzureConfiguration();
 
 // Export the serverless handler
 export const handler = serverless(app);

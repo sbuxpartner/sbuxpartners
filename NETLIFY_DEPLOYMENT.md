@@ -8,7 +8,7 @@ Deploy your TipJar app to Netlify in just a few steps!
 
 - A [Netlify account](https://app.netlify.com/signup) (free tier is sufficient)
 - Git repository (GitHub, GitLab, or Bitbucket)
-- Azure Document Intelligence credentials (optional, falls back to Tesseract OCR)
+- Azure Computer Vision credentials (recommended, falls back to Tesseract OCR if omitted)
 
 ---
 
@@ -37,8 +37,8 @@ This is the easiest way to get started:
 
    ```
    SESSION_SECRET=<generate-a-random-secret-string>
-   AZURE_DI_KEY=<your-azure-document-intelligence-key>
-   AZURE_DI_ENDPOINT=<your-azure-endpoint-url>
+   AZURE_CV_KEY=<your-azure-computer-vision-key>
+   AZURE_CV_ENDPOINT=<your-azure-computer-vision-endpoint>
    OCR_ENGINE=auto
    NODE_ENV=production
    ```
@@ -77,8 +77,8 @@ For developers who prefer the command line:
 5. **Set environment variables:**
    ```bash
    netlify env:set SESSION_SECRET "your-random-secret-here"
-   netlify env:set AZURE_DI_KEY "your-azure-key-here"
-   netlify env:set AZURE_DI_ENDPOINT "your-azure-endpoint-here"
+   netlify env:set AZURE_CV_KEY "your-azure-key-here"
+   netlify env:set AZURE_CV_ENDPOINT "your-azure-endpoint-here"
    netlify env:set OCR_ENGINE "auto"
    netlify env:set NODE_ENV "production"
    ```
@@ -136,8 +136,8 @@ project/
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `AZURE_DI_KEY` | Azure Document Intelligence API key | `abc123def456...` |
-| `AZURE_DI_ENDPOINT` | Azure endpoint URL | `https://your-resource.cognitiveservices.azure.com` |
+| `AZURE_CV_KEY` | Azure Computer Vision API key | `abc123def456...` |
+| `AZURE_CV_ENDPOINT` | Azure Computer Vision endpoint URL | `https://your-resource.cognitiveservices.azure.com` |
 | `OCR_ENGINE` | OCR engine to use | `auto` (tries Azure, falls back to Tesseract) |
 
 ### Setting Environment Variables
@@ -160,6 +160,20 @@ cp env.example .env
 ```
 
 ⚠️ **Never commit `.env` files to Git!**
+
+### Verify Azure Computer Vision connectivity
+
+Once your Netlify environment variables are set:
+
+1. Run `npm run netlify:dev` locally (or open your deployed Netlify site).
+2. Upload a Starbucks Tip Distribution Report through the UI or call the OCR endpoint directly:
+   ```bash
+   curl -X POST \
+     -F "image=@path/to/report.jpg" \
+     http://localhost:8888/api/ocr
+   ```
+3. Check the Netlify function logs. You should see a message like `Azure Computer Vision configured for <your-endpoint>` confirming that the function picked up `AZURE_CV_ENDPOINT` and `AZURE_CV_KEY`.
+4. Successful responses will include `engine: "azure"` and populated `partnerHours` data. If you see a credential warning, re-check the environment variables in Netlify.
 
 ---
 
