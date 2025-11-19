@@ -16,9 +16,7 @@ export default defineConfig({
       ]
       : []),
   ],
-  optimizeDeps: {
-    include: ["react/jsx-runtime"],
-  },
+
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
